@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gobierno Municipal de Altamira</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style src="css/home.css"></style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            border-left: #7b0f2b 5px;
+            border-right: #7b0f2b 5px;
+        }
+
+        /* Bordes de desplazamiento */
+        .border-top, .border-bottom {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #7b0f2cbd;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .border-top {
+            top: 0;
+        }
+
+        .border-bottom {
+            bottom: 0;
+        }
+
+        /* Estilos específicos para móviles */
+        @media (max-width: 768px) {
+            .navbar-collapse {
+                text-align: right; /* Alinear menú a la derecha en móviles */
+                width: 100%;
+            }
+
+            .navbar-nav {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end; /* Alinear elementos del menú a la derecha */
+                padding-right: 10px; /* Espaciado a la derecha */
+            }
+
+            .navbar-nav .nav-item {
+                width: 100%;
+            }
+
+            .logo, .logo-altamira-todos {
+                order: 1;
+                margin-bottom: 1em;
+            }
+
+            .navbar-custom {
+                order: 2;
+            }
+
+            .navbar-toggler {
+                order: 3; /* Mueve el botón a la derecha después de los logos */
+                margin-left: auto; /* Asegura que el botón se alinee a la derecha */
+            }
+        }
+
+        /* Estilos específicos para escritorio */
+        @media (min-width: 769px) {
+            .logo {
+                order: 1;
+            }
+            .logo-altamira-todos {
+                order: 2;
+            }
+            .navbar-custom {
+                order: 3;
+                flex-grow: 1;
+            }
+        }
+
+        /* Animaciones y otros estilos */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        header {
+            background-color: #f5f5f5;
+            padding-bottom: 0.5rem;
+            animation: slideDown 0.8s ease-out;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .navbar-custom {
+            background-color: #f5f5f5;
+        }
+
+        .navbar-custom .nav-link {
+            color: #929292 !important;
+            font-size: 20px;
+        }
+
+        .banner {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 15px;
+            animation: slideDown 0.8s ease-out;
+            background-color: #f5f5f5;
+        }
+
+        .banner video {
+            width: 80%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+            padding: 10px;
+            background: linear-gradient(45deg, #7b0f2b, transparent);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #f5f5f5;
+            text-align: center;
+        }
+
+        h3 {
+            color: #7b0f2b;
+            font-size: 35px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        h4 {
+            color: #7b0f2b;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        p {
+            color: #000000;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+        }
+
+        .content-section {
+            background-color: #f5f5f5;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .bg-light {
+            background-color: #d4cbb5 !important;
+        }
+
+        .card {
+            background-color: #ddb94385;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.2s ease-in-out;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Bordes de desplazamiento -->
+    <div class="border-top"></div>
+    <div class="border-bottom"></div>
+
+    <header>
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between py-3">
+                <div class="logo order-1 order-md-1">
+                    <img src="recursos/altamira.png" alt="Logo Altamira" class="img-fluid" style="height: 100px;">
+                </div>
+                <nav class="navbar navbar-expand-md navbar-custom order-2 order-md-2">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a href="#" class="nav-link">Gobierno</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Turismo y Cultura</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Trámites y Servicios</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Transparencia</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Comunicación</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Atención Ciudadana</a></li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </nav>
+                <div class="logo-altamira-todos order-3 order-md-3">
+                    <img src="recursos/altamira_somos_todos.png" alt="Altamira Somos Todos" class="img-fluid" style="height: 100px;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="banner container-fluid">
+        <video autoplay loop muted>
+            <source src="recursos/3er_informe.mp4" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+        </video>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4">
+                        <img src="recursos/foquito.png" alt="pruebas" class="foquito" style="height: 50px; width: 50px; padding-bottom: 5px;">
+                        <h3 class="mb-3">Plan Municipal de Altamira Tamaulipas</h3>
+                        <p>Conoce los detalles sobre el plan de desarrollo municipal y los proyectos en curso para mejorar la ciudad.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-8 mb-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card p-4 h-100">
+                                <h4>Mensaje del Presidente Municipal de Altamira, Tamaulipas</h4>
+                                <p2 style="color: #929292 ; font-weight: bold; padding-bottom: 15px;">Queridos Altamirenses,</p2>
+                                <p>Un mensaje del Presidente Municipal a los ciudadanos de Altamira, compartiendo sus metas y visión.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <img src="pruebas" alt="Imagen Representativa" class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Gobierno Municipal de Altamira, Tamaulipas</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
